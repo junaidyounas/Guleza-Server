@@ -5,7 +5,7 @@ const productModel = require('../models/product.model');
 // Create
 createProduct = async (req, res) => {
   const requestData = req.body;
-  const url = req.protocol + '://' + req.get('host') + '/';
+  const url = req.protocol + '://' + req.get('host') + '/uploads/';
   
   const thumbnail =url+ req.files.thumbnail[0].filename;
   const images = req.files.images;

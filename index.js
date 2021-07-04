@@ -17,6 +17,8 @@ const orderRouter = require('./routers/orders.router')
 const orderDetailRouter = require('./routers/orderDetails.router')
 const categoryRouter = require('./routers/category.router')
 var bb = require('express-busboy');
+var path = require('path');
+
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', 
 process.env.DATABASE_PASSWORD);
@@ -36,6 +38,15 @@ app.use(cors());
 app.use(express.json({limit: '50mb', extended: true}));
 
 app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
+
+
+// Access local multer uploaded files
+
+var dir = path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(dir));
+
+
+
 // bb.extend(app);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);
