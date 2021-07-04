@@ -67,7 +67,7 @@ router.route('/').get(productController.getAllProducts);
 router
   .route('/:id')
   .get(productController.getSingleProduct)
-  .patch(productController.updateProduct)
+  .patch(cpUpload, productController.updateProduct)
   .delete(productController.deleteProduct);
 
 module.exports = router;

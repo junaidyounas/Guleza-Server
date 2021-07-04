@@ -28,7 +28,7 @@ const DB_LOCAL = process.env.DATABASE_LOCAL;
 mongoose.connect(DB_LOCAL, {
    useCreateIndex: true,
    useNewUrlParser: true,
-   useFindAndModify: true,
+   useFindAndModify: false,
    useUnifiedTopology: true
 }).then((con) => {
    console.log('Connection Successfully');
