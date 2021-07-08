@@ -122,17 +122,32 @@ if (req.body.hasOwnProperty('isActive')) {
 
 // update product
 updateCategory = async (req, res) => {
+
   const requestData = req.body;
   const {id: _id} = req.params;
-  const images = req.files && req.files.map((item) => item.filename);
+  const url = req.protocol + '://' + req.get('host') + '/uploads/category/';
 
-   if(!mongoose.Types.ObjectId.isValid(_id)){
-      return res.status(404).json({
-         error: 'Sorry, no data with this id'
-      })
-   }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({
+      error: 'Sorry, no data with this id',
+    });
+  }
+  var finalData = {...requestData, ..._id};
+ 
+  if (req.files.images) {
+    var images = req.files.images;
+    console.log('images =====> ', images);
+    const multipleImages = [];
+    const imageArr = Array.from(images);
+    imageArr.forEach((image) => {
+      multipleImages.push(url + image.filename);
+    });
+    finalData = {...finalData, images: multipleImages};
+  }
+
+
    await categoryModel
-     .findByIdAndUpdate(_id, {...requestData, _id, ...images}, {new: true})
+     .findByIdAndUpdate(_id, finalData, {new: true})
      .then((data) => {
        res.status(201).json({
          message: 'success',

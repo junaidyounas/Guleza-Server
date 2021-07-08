@@ -53,10 +53,6 @@ router
   .get(categoryController.getSingleCategoryByID)
   .delete(categoryController.deleteCategory);
 
-router.patch(
-  '/:id',
-  upload.array('images'),
-  categoryController.updateCategory
-);
+router.patch('/:id', cpUpload, categoryController.updateCategory);
 
 module.exports = router;

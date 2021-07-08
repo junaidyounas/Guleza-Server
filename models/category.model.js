@@ -5,7 +5,7 @@ const categorySchema = new mongoose.Schema({
    shortDesc: {type: String},
    longDesc: {type: String},
    images: {type: Array},
-   isLive: {type: String}
+   isLive: {type: Boolean}
 });
 
 const categoryModel = mongoose.model('category', categorySchema);
