@@ -9,8 +9,6 @@ createProduct = async (req, res) => {
 
   const thumbnail = url + req.files.thumbnail[0].filename;
   const images = req.files.images;
-  // console.log('=====> body ====> ', thumbnail);
-  // console.log('===> images ===> ', images)
 
   const multipleImages = [];
   const imageArr = Array.from(images);

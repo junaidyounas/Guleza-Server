@@ -46,8 +46,6 @@ var cpUpload = upload.fields([
   {name: 'images', maxCount: 6},
 ]);
 
-// var cpUpload = upload.array('images');
-
 
 router.post('/', cpUpload, productController.createProduct);
 
