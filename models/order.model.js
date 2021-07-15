@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  userId: {type: String, required: [true, 'User id required']},
+  userId: {type: String},
+  userName: {type: String},
+  userType: {type: String},
   orderNumber: {type: String, unique: true},
   paymentID: {type: String},
   date: {type: String, default: new Date()},
@@ -22,7 +24,8 @@ const orderSchema = new mongoose.Schema({
   isDeleted: {type: Boolean, default: false},
   isPaid: {type: Boolean, default: false},
   paymentDate: {type: String},
-  trackingNumber: {type: String, unique: true}
+  trackingNumber: {type: String, unique: true},
+  isDelivered: {type: String},
 });
 
 const orderModel = mongoose.model('orders', orderSchema);

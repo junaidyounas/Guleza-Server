@@ -46,8 +46,6 @@ var cpUpload = upload.fields([
   {name: 'images', maxCount: 6},
 ]);
 
-// var cpUpload = upload.array('images');
-
 
 router.post('/', cpUpload, productController.createProduct);
 
@@ -67,7 +65,11 @@ router.route('/').get(productController.getAllProducts);
 router
   .route('/:id')
   .get(productController.getSingleProduct)
-  .patch(productController.updateProduct)
+  .patch(cpUpload, productController.updateProduct)
   .delete(productController.deleteProduct);
+
+router
+  .route('/filter/')
+  .post(productController.getFilteredProducts);
 
 module.exports = router;

@@ -1,13 +1,17 @@
 const express = require('express');
 
 const categoryController = require('../controller/category.controller');
+const router = express.Router();
+
 
 var multer = require('multer');
+const muliple = require('connect-multiparty');
+const multipleMiddleware = muliple();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log(req.file);
-    cb(null, './images/category/');
+    cb(null, './uploads/category/');
   },
   filename: function (req, file, cb) {
     console.log(req.file);
@@ -28,18 +32,19 @@ var upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5,
-    files: 5,
+    files: 9,
   },
   fileFilter: fileFilter,
 });
 
-const router = express.Router();
+var cpUpload = upload.fields([
+  {name: 'images', maxCount: 6},
+]);
 
-router.post(
-  '/',
-  upload.array('images'),
-  categoryController.createCategory
-);
+
+
+
+router.post('/', cpUpload, categoryController.createCategory);
 
 router.route('/').get(categoryController.getAllCategories);
 
@@ -48,10 +53,6 @@ router
   .get(categoryController.getSingleCategoryByID)
   .delete(categoryController.deleteCategory);
 
-router.patch(
-  '/:id',
-  upload.array('images'),
-  categoryController.updateCategory
-);
+router.patch('/:id', cpUpload, categoryController.updateCategory);
 
 module.exports = router;
