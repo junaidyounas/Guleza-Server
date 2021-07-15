@@ -166,10 +166,59 @@ deleteProduct = async (req, res) => {
     });
 };
 
+
+// get filtered products
+getFilteredProducts = async (req, res) => {
+var query = {};
+
+if (req.body.hasOwnProperty('title')) {
+  query.title = req.body.title;;
+}
+
+if (req.body.hasOwnProperty("url")) {
+  query.url = req.body.url;
+  // console.log(req.body.url)
+}
+
+if (req.body.hasOwnProperty('isLive')) {
+  query.isLive = req.body.isLive;
+}
+
+if(req.body.hasOwnProperty('categories')){
+  var regex = new RegExp(["^", req.body.categories, "$"].join(""), "i");
+  query.categories = regex;
+}
+
+
+
+   await productModel
+     .find(query)
+     .then((data) => {
+       res.status(200).json({
+         message: 'success',
+         length: data.length,
+         data,
+       });
+       console.log(data)
+     })
+     .catch((err) => {
+       const array = [];
+       for (var key in err.errors) {
+         array.push({eName: key, error: err.errors[key].message});
+       }
+       res.status(409).json({
+         error: array,
+       });
+     });
+}
+
+
+
 module.exports = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  getFilteredProducts,
 };

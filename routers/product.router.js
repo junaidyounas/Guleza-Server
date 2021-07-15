@@ -68,4 +68,8 @@ router
   .patch(cpUpload, productController.updateProduct)
   .delete(productController.deleteProduct);
 
+router
+  .route('/filter/')
+  .post(productController.getFilteredProducts);
+
 module.exports = router;
