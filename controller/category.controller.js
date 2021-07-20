@@ -33,7 +33,7 @@ createCategory = async (req, res) => {
       for (var key in err.errors) {
         array.push({eName: key, error: err.errors[key].message});
       }
-      res.statuc(409).json({
+      res.status(409).json({
         error: array,
       });
     });

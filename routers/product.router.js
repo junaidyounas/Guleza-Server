@@ -72,4 +72,6 @@ router
   .route('/filter/')
   .post(productController.getFilteredProducts);
 
+router.route("/url").post(productController.getFilteredProductsByUrl);
+
 module.exports = router;

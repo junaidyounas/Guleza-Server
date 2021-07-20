@@ -5,7 +5,7 @@ const orderModel = require('../models/order.model');
 // create order
 createOrder = async (req, res) => {
    const requestData = req.body;
-
+  console.log('Called', req.body)
    await orderModel
       .create(requestData)
       .then((order) => {
@@ -13,14 +13,16 @@ createOrder = async (req, res) => {
             message: 'success',
             body: order
          })
+         console.log(order)
       }).catch(err => {
          const array = [];
          for(var key in err.errors){
             array.push({eName: key, error:  err.errors[key].message});
          }
-         res.statuc(409).json({
+         res.status(409).json({
             error: array
          })
+         console.log(array)
       })
 }
 
@@ -46,7 +48,7 @@ updateOrder = async (req, res) => {
          for(var key in err.errors){
             array.push({eName: key, error:  err.errors[key].message});
          }
-         res.statuc(409).json({
+         res.status(409).json({
             error: array
          })
       })
