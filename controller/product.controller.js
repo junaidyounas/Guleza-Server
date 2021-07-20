@@ -180,6 +180,11 @@ if (req.body.hasOwnProperty("url")) {
   // console.log(req.body.url)
 }
 
+if (req.body.hasOwnProperty("sku")) {
+  query.sku = req.body.sku;
+  // console.log(req.body.url)
+}
+
 if (req.body.hasOwnProperty('isLive')) {
   query.isLive = req.body.isLive;
 }
@@ -212,6 +217,41 @@ if(req.body.hasOwnProperty('categories')){
      });
 }
 
+// get filtered products by url
+getFilteredProductsByUrl = async (req, res) => {
+var query = {};
+
+
+
+if (req.body.hasOwnProperty("url")) {
+  query.url = req.body.url;
+  // console.log(req.body.url)
+}
+
+
+
+   await productModel
+     .find(query)
+     .limit(1)
+     .then((data) => {
+       res.status(200).json({
+         message: 'success',
+         data,
+       });
+       console.log(data)
+     })
+     .catch((err) => {
+       const array = [];
+       for (var key in err.errors) {
+         array.push({eName: key, error: err.errors[key].message});
+       }
+       res.status(409).json({
+         error: array,
+       });
+     });
+}
+
+
 
 
 module.exports = {
@@ -221,4 +261,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getFilteredProducts,
+  getFilteredProductsByUrl,
 };
