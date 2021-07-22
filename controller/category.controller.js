@@ -4,21 +4,22 @@ const categoryModel = require('../models/category.model');
 
 // createCategory
 createCategory = async (req, res) => {
-    const url = req.protocol + '://' + req.get('host') + '/uploads/category/';
+  const requestData = req.body;
+    // const url = req.protocol + '://' + req.get('host') + '/uploads/category/';
 
-    const images = req.files.images;
+  //   const images = req.body.images;
 
-    const multipleImages = [];
-    const imageArr = Array.from(images);
-    imageArr.forEach((image) => {
-      multipleImages.push(url + image.filename);
-    });
-  // const images = req.files.map(item => item.filename);
-  console.log(images)
-  const requestData = {
-    ...req.body,
-    images: multipleImages,
-  };
+  //   const multipleImages = [];
+  //   const imageArr = Array.from(images);
+  //   imageArr.forEach((image) => {
+  //     multipleImages.push(url + image.filename);
+  //   });
+  // // const images = req.files.map(item => item.filename);
+  // console.log(images)
+  // const requestData = {
+  //   ...req.body,
+  //   images: multipleImages,
+  // };
 
   await categoryModel
     .create(requestData)
@@ -125,8 +126,7 @@ updateCategory = async (req, res) => {
 
   const requestData = req.body;
   const {id: _id} = req.params;
-  const url = req.protocol + '://' + req.get('host') + '/uploads/category/';
-
+  
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({
       error: 'Sorry, no data with this id',
@@ -134,17 +134,7 @@ updateCategory = async (req, res) => {
   }
   var finalData = {...requestData, ..._id};
  
-  if (req.files.images) {
-    var images = req.files.images;
-    console.log('images =====> ', images);
-    const multipleImages = [];
-    const imageArr = Array.from(images);
-    imageArr.forEach((image) => {
-      multipleImages.push(url + image.filename);
-    });
-    finalData = {...finalData, images: multipleImages};
-  }
-
+ 
 
    await categoryModel
      .findByIdAndUpdate(_id, finalData, {new: true})
