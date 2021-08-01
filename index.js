@@ -41,7 +41,7 @@ app.use(express.json({limit: '50mb', extended: true}));
 app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
 
 
-// Access local multer uploaded files
+// Access local multer uploaded filess
 
 var dir = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(dir));
