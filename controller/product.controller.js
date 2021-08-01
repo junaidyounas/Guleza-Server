@@ -5,35 +5,21 @@ const productModel = require('../models/product.model');
 // Create
 createProduct = async (req, res) => {
   const requestData = req.body;
-  const url = req.protocol + '://' + req.get('host') + '/uploads/';
+  
 
-  const thumbnail = url + req.files.thumbnail[0].filename;
-  const images = req.files.images;
-
-  const multipleImages = [];
-  const imageArr = Array.from(images);
-  imageArr.forEach((image) => {
-    multipleImages.push(url + image.filename);
-  });
-
-  const finalData = {
-    ...requestData,
-    ...{images: multipleImages},
-    ...{thumbnail},
-  };
 
   await productModel
-    .create(finalData)
+    .create(requestData)
     .then((product) => {
       res.status(201).json({
-        message: 'success',
-        body: 'success',
+        message: "success",
+        body: product,
       });
     })
     .catch((err) => {
       const array = [];
       for (var key in err.errors) {
-        array.push({eName: key, error: err.errors[key].message});
+        array.push({ eName: key, error: err.errors[key].message });
       }
       res.status(409).json({
         error: array,

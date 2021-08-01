@@ -5,21 +5,7 @@ const categoryModel = require('../models/category.model');
 // createCategory
 createCategory = async (req, res) => {
   const requestData = req.body;
-    // const url = req.protocol + '://' + req.get('host') + '/uploads/category/';
-
-  //   const images = req.body.images;
-
-  //   const multipleImages = [];
-  //   const imageArr = Array.from(images);
-  //   imageArr.forEach((image) => {
-  //     multipleImages.push(url + image.filename);
-  //   });
-  // // const images = req.files.map(item => item.filename);
-  // console.log(images)
-  // const requestData = {
-  //   ...req.body,
-  //   images: multipleImages,
-  // };
+  
 
   await categoryModel
     .create(requestData)

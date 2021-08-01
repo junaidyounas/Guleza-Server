@@ -3,8 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 var multer = require("multer");
-const muliple = require("connect-multiparty");
-const multipleMiddleware = muliple();
+const sharp = require("sharp");
 
 const { v4 } = require("uuid");
 const AWS = require("aws-sdk");
@@ -55,13 +54,17 @@ router.post("/", cpUpload, (req, res) => {
     imagesProccessed++;
     let myFiles = image.originalname.split(".");
     let fileType = myFiles[myFiles.length - 1];
+
+
+    const compressedBuffer = sharp(image.buffer).resize(320, 320);
+
     console.log(fileType);
     const params = {
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: `${v4()}.${fileType}`,
-      Body: image.buffer,
+      Body: compressedBuffer,
       ACL: "public-read",
-      'ContentType':'image/jpeg', //<-- this is what you need!
+      ContentType: "image/jpeg", //<-- this is what you need!
     };
     s3.upload(params, (error, data) => {
       //  console.log(data.Location);
