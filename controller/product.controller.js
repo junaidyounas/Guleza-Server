@@ -182,6 +182,8 @@ if (req.body.hasOwnProperty("url")) {
 
 if (req.body.hasOwnProperty("sku")) {
   query.sku = req.body.sku;
+  // var regex = new RegExp(["^", req.body.sku, "$"].join(""), "i");
+  // query.sku = regex;
   // console.log(req.body.url)
 }
 

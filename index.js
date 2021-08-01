@@ -16,6 +16,7 @@ const productRouter = require('./routers/product.router');
 const orderRouter = require('./routers/orders.router')
 const orderDetailRouter = require('./routers/orderDetails.router')
 const categoryRouter = require('./routers/category.router')
+const uploadRouter = require('./routers/upload.router');
 var bb = require('express-busboy');
 var path = require('path');
 
@@ -53,6 +54,7 @@ app.use('/api/v1/products', productRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/orderdetails', orderDetailRouter);
 app.use('/api/v1/categories', categoryRouter);
+app.use("/api/v1/upload", uploadRouter);
 
 
 
