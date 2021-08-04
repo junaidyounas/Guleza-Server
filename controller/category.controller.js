@@ -29,25 +29,30 @@ createCategory = async (req, res) => {
 
 // getall orders
 getAllCategories = async (req, res) => {
-   await categoryModel
-     .find()
-     .then((data) => {
-       res.status(201).json({
-         message: 'success',
-         length: data.length,
-         data,
-       });
-     })
-     .catch((err) => {
-       const array = [];
-       for (var key in err.errors) {
-         array.push({eName: key, error: err.errors[key].message});
-       }
-       res.status(409).json({
-         error: array,
-       });
-     });
-}
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE"); // If needed
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,contenttype"); // If needed
+  res.setHeader("Access-Control-Allow-Credentials", true); // If needed
+
+  await categoryModel
+    .find()
+    .then((data) => {
+      res.status(201).json({
+        message: "success",
+        length: data.length,
+        data,
+      });
+    })
+    .catch((err) => {
+      const array = [];
+      for (var key in err.errors) {
+        array.push({ eName: key, error: err.errors[key].message });
+      }
+      res.status(409).json({
+        error: array,
+      });
+    });
+};
 
 // getSingleOrder by id
 getSingleCategoryByID = async(req, res) => {
