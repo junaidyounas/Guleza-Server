@@ -1,0 +1,33 @@
+{
+  "name": "ecommercebackend",
+  "version": "1.0.0",
+  "description": "Ecommerce BackEnd",
+  "main": "index.js",
+  "homepage": ".",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Junaid Younas",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.951.0",
+    "bcryptjs": "^2.4.3",
+    "connect-multiparty": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-busboy": "^8.0.0",
+    "express-csp-header": "^5.0.0",
+    "helmet-csp": "^3.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "lusca": "^1.7.0",
+    "mongoose": "^5.12.14",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.7",
+    "path": "^0.12.7",
+    "sharp": "^0.28.3",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0"
+  }
+}
