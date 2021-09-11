@@ -40,6 +40,7 @@ var path = require('path');
 // const DB = `mongodb://gulezaAdmin:YouMy88128812%40%40@51.161.162.154:27017/guleza?authSource=admin?retryWrites=true&w=majority`;
 const DB =
   "mongodb+srv://admin:My99129912@cluster0.7c4pd.mongodb.net/Cluster0?retryWrites=true&w=majority";
+  // Done
 
 // const DB_LOCAL = process.env.DATABASE_LOCAL;
 
