@@ -42,10 +42,10 @@ const DB =
   "mongodb+srv://admin:My99129912@cluster0.7c4pd.mongodb.net/Cluster0?retryWrites=true&w=majority";
   // Done
 
-// const DB_LOCAL = process.env.DATABASE_LOCAL;
+const DB_LOCAL = process.env.DATABASE_LOCAL;
 
 mongoose
-  .connect(DB, {
+  .connect(DB_LOCAL, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false,

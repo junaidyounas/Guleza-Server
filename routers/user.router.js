@@ -18,4 +18,8 @@ router
    .route('/')
    .get(userController.getAllUsers);
 
+router
+   .route('/login')
+   .post(userController.loginUser)
+
 module.exports = router;

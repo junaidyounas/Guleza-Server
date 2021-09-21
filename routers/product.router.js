@@ -1,7 +1,7 @@
 const express = require('express');
 
 const productController = require('../controller/product.controller');
-
+const auth = require('../controller/authProtection');
 var multer = require('multer');
 const muliple = require('connect-multiparty');
 const multipleMiddleware = muliple();
@@ -47,7 +47,7 @@ var cpUpload = upload.fields([
 ]);
 
 
-router.post('/', cpUpload, productController.createProduct);
+router.post("/", auth.protectRoute, cpUpload, productController.createProduct);
 
 // router.post('/', cpUpload, function (req, res, next) {
 //   const thumbnail = req.files.thumbnail;
@@ -60,7 +60,7 @@ router.post('/', cpUpload, productController.createProduct);
 
 // });
 
-router.route('/').get(productController.getAllProducts);
+router.route("/").get(productController.getAllProducts);
 
 router
   .route('/:id')
