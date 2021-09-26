@@ -45,7 +45,7 @@ const DB =
 const DB_LOCAL = process.env.DATABASE_LOCAL;
 
 mongoose
-  .connect(DB_LOCAL, {
+  .connect(DB, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false,

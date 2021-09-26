@@ -56,7 +56,7 @@ router.post("/", cpUpload, (req, res) => {
     let fileType = myFiles[myFiles.length - 1];
 
 
-    const compressedBuffer = sharp(image.buffer).resize(320, 320);
+    const compressedBuffer = sharp(image.buffer).resize(640, 640);
 
     console.log(fileType);
     const params = {
