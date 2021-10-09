@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const orderModel = require('../models/order.model');
+const Email = require("email-templates");
+const path = require("path");
 
 const nodemailer = require("nodemailer");
 // async..await is not allowed in global scope, must use a wrapper
@@ -20,92 +22,32 @@ async function mailerSender(orderDetails) {
     },
   });
 
+  //Generate template (Example: templates/emails/demo/index.pug)
+  var template = path.join(__dirname, "../templates/emails", "admin");
+var email = new Email({ views: { root: template } });
+var locals = {
+  orderNumber: `${orderDetails.orderNumber}`,
+  username: `${orderDetails.userName}`,
+  shippingState: `${orderDetails.shipState}`,
+  shipCity: `${orderDetails.shipCity}`,
+  shipCountry: `${orderDetails.shipCountry}`,
+  shipAddress: `${orderDetails.shipAddress1}`,
+  phone: `${orderDetails.phone}`,
+  date: `${orderDetails.date}`,
+  itemsArray: orderDetails.items,
+};
+// console.log('items ====> ', orderDetails.items)
+var html = await email.render(template, locals);
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"New Order" shop@guleza.com', // sender address
     to: "junaidammar2013@gmail.com", // list of receivers
     subject: "Guleza New Order - Alert", // Subject line
     text: "Hello Sir, you just got new order these are the details", // plain text body
-    html: `<table width="100%" border="1">
-<tr>
-  <td class="column">
-    Username
-  </td>
-  <td class="column">
-    ${orderDetails.userName}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Order Number
-  </td>
-  <td class="column">
-    ${orderDetails.orderNumber}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Shipping State
-  </td>
-  <td class="column">
-    ${orderDetails.shipState}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Shipping City
-  </td>
-  <td class="column">
-    ${orderDetails.shipCity}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Shipping Address
-  </td>
-  <td class="column">
-    ${orderDetails.shipAddress1}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Phone Number
-  </td>
-  <td class="column">
-    ${orderDetails.phone}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Date
-  </td>
-  <td class="column">
-    ${orderDetails.date}
-  </td>
-</tr>
-<tr>
-  <td class="column">
-    Country
-  </td>
-  <td class="column">
-    ${orderDetails.shipCountry}
-  </td>
-</tr>
-</table></br>
-<table width="100%" border="1">
-      ${orderDetails.items.map(
-        (item) =>
-          ` <tr>
-          <td class="column">Item Data</td>
-          <td class="column">Product :${item.name} , Price : ${item.price}, Size : ${item.size}, Stock : ${item.quantity}, Sku : ${item.sku}</td>
-        </tr>`
-      )}
-      </table>
-
-`, // html body
+    html: html,
   });
 
-  function renderLoopTable (items){
+  function renderLoopTable(items) {
     `<table width="100%" border="1">
       <tr>
         <td class="column">
@@ -141,15 +83,13 @@ async function mailerSender(orderDetails) {
       </tr>
       </table>
       `;
-
   }
 
- 
-  console.log("Message sent: %s", info.messageId);
+  // console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
@@ -304,10 +244,32 @@ if (req.body.hasOwnProperty('trackingNumber')) {
      });
 }
 
+// delete product
+deleteAllOrder = async (req, res) => {
+  
+  await orderModel
+    .deleteMany({})
+    .then((data) => {
+      res.status(201).json({
+        message: "success"
+      });
+    })
+    .catch((err) => {
+      const array = [];
+      for (var key in err.errors) {
+        array.push({ eName: key, error: err.errors[key].message });
+      }
+      res.status(409).json({
+        error: array,
+      });
+    });
+};
+
 module.exports = {
   createOrder,
   updateOrder,
   getAllOrders,
   getSingleOrderByID,
   getFilteredOrders,
+  deleteAllOrder,
 };

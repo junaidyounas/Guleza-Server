@@ -28,11 +28,11 @@ async function mailerSender(orderDetails) {
     html: `<b>Hello Sir, you just got new order these are the details</b></br>${orderDetails}`, // html body
   });
 
-  console.log("Message sent: %s", info.messageId);
+  // console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
@@ -151,10 +151,32 @@ if (req.body.hasOwnProperty('color')) {
      });
 }
 
+// delete product
+deleteAllOrderDetails = async (req, res) => {
+  
+  await orderDetailModel
+    .deleteMany({})
+    .then((data) => {
+      res.status(201).json({
+        message: "success",
+      });
+    })
+    .catch((err) => {
+      const array = [];
+      for (var key in err.errors) {
+        array.push({ eName: key, error: err.errors[key].message });
+      }
+      res.status(409).json({
+        error: array,
+      });
+    });
+};
+
 
 module.exports = {
   createOrderDetail,
   getAllOrdersDetails,
   getSingleOrderDetailByID,
   getFilteredOrdersDetails,
+  deleteAllOrderDetails,
 };

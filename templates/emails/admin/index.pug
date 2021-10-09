@@ -1,0 +1,76 @@
+<html>
+<head>
+    style
+      // Custom styles for this template
+      include ./style.css
+</head>
+<body  class="body">
+<div class="table-title">
+<h3>Order Details</h3>
+</div>
+<table class="table-fill">
+<thead>
+<tr>
+<th class="text-left">Username</th>
+<td class="text-left">#{username}</td>
+</tr>
+</thead>
+<tbody class="table-hover">
+<tr>
+<th class="text-left">Order Number</th>
+<td class="text-left">#{orderNumber}</td>
+</tr>
+<tr>
+<th class="text-left">Shipping State</th>
+<td class="text-left">#{shippingState}</td>
+</tr>
+<tr>
+<th class="text-left">Shipping City</th>
+<td class="text-left">#{shipCity}</td>
+</tr>
+<tr>
+<th class="text-left">Shipping Country</th>
+<td class="text-left">#{shipCountry}</td>
+</tr>
+<tr>
+<th class="text-left">Shipping Address</th>
+<td class="text-left">#{shipAddress}</td>
+</tr>
+<tr>
+<th class="text-left">Phone</th>
+<td class="text-left">#{phone}</td>
+</tr>
+<tr>
+<th class="text-left">Date</th>
+<td class="text-left">#{date}</td>
+</tr>
+</tbody>
+</table>
+<h3>Products</h3>
+<table>
+//- -var ob = JSON.parse(itemsArray)
+table.table.table-striped
+      tr
+        th Name
+        th Image
+        th price
+        th color
+        th Size
+        th Quantity
+        th Sku
+
+      each n in itemsArray
+        tr
+          td= n.name
+          td(scope="row")
+            img(src= n.image)
+          td= n.price
+          td= n.color
+          td= n.size
+          td= n.quantity
+          td= n.sku
+
+//- <p>#{itemsArray[0]['name']}</p>
+</table>
+</body>
+</html>

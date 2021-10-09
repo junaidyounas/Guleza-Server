@@ -83,14 +83,14 @@ updateProduct = async (req, res) => {
      })
   }
   var finalData = {...requestData, ..._id}
-  if (req.files.thumbnail) {
+  if (req.files?.thumbnail) {
     var thumbnail = url + req.files.thumbnail[0].filename;
-    console.log('thumbnail =====> ', thumbnail);
+    // console.log('thumbnail =====> ', thumbnail);
     finalData = {...finalData, thumbnail};
   }
-if (req.files.images) {
+if (req.files?.images) {
     var images = req.files.images;
-    console.log('images =====> ', images);
+    // console.log('images =====> ', images);
     const multipleImages = [];
     const imageArr = Array.from(images);
     imageArr.forEach((image) => {

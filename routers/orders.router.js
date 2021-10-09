@@ -17,5 +17,9 @@ const router = express.Router();
      .route('/filter/')
      .post(orderController.getFilteredOrders);
 
+   router
+      .route('/deleteall')
+      .delete(orderController.deleteAllOrder);
+
 
 module.exports = router;

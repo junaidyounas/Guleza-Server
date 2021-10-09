@@ -14,7 +14,11 @@ router
 
 router
    .route('/filter/')
-   .post(orderDetailsController.getFilteredOrdersDetails)
+   .post(orderDetailsController.getFilteredOrdersDetails);
+
+router
+   .route('/deleteall')
+   .delete(orderDetailsController.deleteAllOrderDetails);
 
 
 module.exports = router;

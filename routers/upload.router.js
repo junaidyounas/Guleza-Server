@@ -15,7 +15,7 @@ const s3 = new AWS.S3({
 
 var storage = multer.memoryStorage({
   destination: function (req, file, cb) {
-    console.log(req.file);
+    // console.log(req.file);
     cb(null, "");
   },
 });
@@ -58,7 +58,7 @@ router.post("/", cpUpload, (req, res) => {
 
     const compressedBuffer = sharp(image.buffer).resize(640, 640);
 
-    console.log(fileType);
+    // console.log(fileType);
     const params = {
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: `${v4()}.${fileType}`,

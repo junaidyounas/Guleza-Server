@@ -10,11 +10,11 @@ const multipleMiddleware = muliple();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(req.file);
+    // console.log(req.file);
     cb(null, './uploads/category/');
   },
   filename: function (req, file, cb) {
-    console.log(req.file);
+    // console.log(req.file);
     cb(null, Date.now() + '-' + file.originalname);
   },
 });
